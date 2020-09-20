@@ -7,9 +7,10 @@ open_url = urllib.request.urlopen(input_link).read()
 soup = BeautifulSoup(open_url, 'html.parser')
 tags = soup('a')
 
+
 count = 7
 for i in range (count):
-    position = 18
+    position =18
     for tag in tags:
         position -= 1
         if position == 0:
