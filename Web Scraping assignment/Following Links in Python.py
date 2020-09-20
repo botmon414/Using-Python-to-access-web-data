@@ -1,21 +1,21 @@
-# To run this, download the BeautifulSoup zip file
-# http://www.py4e.com/code3/bs4.zip
-# and unzip it in the same directory as this file
-
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
-import ssl
 
-# Ignore SSL certificate errors
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
+input_link = input('enter URL - ')
+open_url = urllib.request.urlopen(input_link).read()
 
-url = input('Enter - ')
-html = urllib.request.urlopen(url, context=ctx).read()
-soup = BeautifulSoup(html, 'html.parser')
-
-# Retrieve all of the anchor tags
+soup = BeautifulSoup(open_url, 'html.parser')
 tags = soup('a')
-for tag in tags:
-    print(tag.get('href', None))
+
+count = 7
+for i in range (count):
+    position = 18
+    for tag in tags:
+        position -= 1
+        if position == 0:
+            print(tag.get('href', None))
+            print(tag.contents[0])
+            new_url = tag.get('href', None)
+            open_url = urllib.request.urlopen(new_url).read()
+            soup = BeautifulSoup(open_url, 'html.parser')
+            tags = soup('a')
